@@ -1,0 +1,134 @@
+              Management Information to be Maintained by the IWMDD
+
+                            RBW - September 15, 1993
+
+Accessing IWMDD MIB Data
+========================
+
+            Client Request                        IWMDD Response
+======================================= =======================================
+"<sender> iwmdd show"                   series of messages containing infor-
+                                        mation on clients; one client per
+  (use of this request not              message.  Example of a message:
+  recommended; included for         "iwmdd <sender> client_table[32]
+  backward-compatibility only)        Name="pcp.wzlalm",ReadBufSize=0,
+                                      ReadBufCharOvfl=0,WriteBufSize=0,
+                                      WriteBufMsgOvfl=0"
+
+"<sender> iwmdd show client"            single message containing comma-
+                                        separated list of clients.  Example:
+  (use of this request not          "iwmdd <sender> client-list bob,kn_pcp,
+  recommended; included for           kn_pcp,kn_pcp,kn_pcp,iwui.sirius.985,
+  backward-compatibility only)        iwsubnets.sirius.987,picky.sirius.986,
+                                      iwui.procyon.1112,picky.procyon.1113,
+                                      pcp.moe.ctl,pcp.ink.ctl,kn_pcp,
+                                      pcp.mhl.ctl,maskui.procyon.1115,
+                                      pcp.ezl.ctl,recui.procyon.1116,
+                                      pcp.uhe.ctl,pcp.abe.ctl,pcp.lke.ctl,
+                                      pcp.uxb.ctl,pcp.ctn.ctl,pcp.frd.ctl,
+                                      pcp.rtt.ctl,pcp.nvl.ctl,pcp.rnntm,
+                                      pcp.rnnalm,pcp.wzltm,pcp.rsttm,
+                                      pcp.hbtalm,pcp.wzlalm,pcp.kns.wzl,
+                                      pcp.kns.wzl,iwsubnets.centauri.25925,
+                                      disp,control"
+
+"<sender> iwmdd dump sys"               single message containing comma-
+                                        separated list of all sys MIB
+                                        variables.  each form of each variable
+                                        is "<variable-name>=<value>\n".
+                                        Example:
+                                    "iwmdd <sender> sys-mib\n
+                                     sysProcPathName=/home/dsk1/iw/bin/iwmdd\n
+                                     sysProcName=iwmdd\n
+                                     sysProcId=145\n
+                                     sysHostName=vega\n
+                                     sysIpAddr=159.77.201.107\n
+                                     sysTcpPort=7895\n
+                                     ..."
+
+"<sender> iwmdd dump client N[-M] [<reg-list>]"
+
+                                        series of messages, one for each
+                                        client, containing those Client Mib
+                                        variables requested in the comma-
+                                        separated <reg-list>.
+
+System
+======
+sysProcPathName=	/home/dsk1/iw/bin/iwmdd
+sysProcName=		iwmdd
+sysProcId=		145
+
+sysHostName=		vega
+sysIpAddr=		159.77.201.107
+sysTcpPort=		7895
+
+sysVersionNum=		1.0.2
+sysVersionDate=		Wed Aug 18, 1993
+
+sysMaxFds=		256
+sysMaxClients=		250
+
+sysStartTimeGmt=	930902.1300.35
+sysStartTimeLocal=	930902.1500.35
+sysStartTimeSecs=	746974835
+
+sysTimeGmt=		930913.1344.30
+sysTimeLocal=		930913.1544.30
+sysTimeSecs=		747927870
+
+sysUpTimeSecs=		953035
+
+sysOctetsReceived=	999999
+sysMsgsReceived=	999999
+sysOctetsSent=		999999
+sysMsgsSent=		999999
+
+sysRuUsrTime=		1034.340000
+sysRuSysTime=		3571.360000
+sysRuRss=		456
+sysRuIntRss=		2034352
+sysRuMinFlt=		1372488
+sysRuMajFlt=		80209
+sysRuNSwap=		0
+sysRuInBlock=		83315
+sysRuOutBlock=		23976
+sysRuMsgSnd=		42406
+sysRuMsgRcv=		810367
+sysRuNSignals=		2
+sysRuNVCSw=		294171
+sysRuNIVCSw=		6855
+
+Client  (maintained in client table; each record in the client table
+======   corresponds to an IWMDD client)
+
+clIndex.2=		2
+clTimeOfPollSecs=	747927894
+clName.2=		pb-masking.pele.153
+clSock.2=		7
+clHostName.2=		sirius
+clHostIpAddr.2=		159.77.201.114
+clHostPort.2=		2688
+
+clMsgsReceived.2=	12717
+clOctetsReceived.2=	12717
+clCompleteReads.2=	999999
+clPartialReads.2=	999999
+clReadBufOverflows.2=	999999
+clReadBufSize.2=	13
+clReadBufCharOvfl.2=	377
+clReadBuf.2=		"a b bad message \004test"
+
+clMsgsSent.2=		33447
+clOctetsSent.2=		407
+clCompleteWrites.2=	999999
+clPartialWrites.2=	999999
+clFailedWrites.2=	999999
+clWriteBufSize.2=	0
+clWriteBufMsgOvfl.2=	29
+clWriteBuf.2=		""
+
+clWhenConnected.2=	747923670
+clLastHeardFrom.2=	747927866
+
+SCCS Tag:  "@(#)iwmdd.mib-info	1.2 9/16/93 GTE-TSC"
