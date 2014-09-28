@@ -1,0 +1,130 @@
+Functional Description
+======================
+
+	Purpose: provide IPC between IW processes
+	Star topology -client/server
+	Messages - notification of real-time events, alarms, but not
+	    bulk data transfer.
+
+	  (IWMDD tuned for many short messages, rather than a few large
+	   messages)
+
+
+
+
+
+Mandantory Message Format
+=========================
+
+	Each message consists N-bytes of data.  Each byte consists
+	of any non-null character.  Null used to delimit message.
+	Although any non-null character can be send in message, general
+	should send only "printable" characters.
+
+	Message Format:
+
+	  "<source> <destination> <body><null-character>
+
+	<source>:	1 or more visible (printable; not space or tab)
+			characters identifying the name of the sending
+			process.  See section (???) for a description of
+			this name.
+
+	(space or tabs to delimit <source> and <destination>)
+
+	<destination>:	1 or more visible (printable; not space or tab)
+			describe truncation process.
+			"all" is special case
+
+	(space or tabs to delimit <destination> body)
+
+	<body>:		all other data characters between delimitation
+			and null character.
+
+IWMD Process Name:
+
+
+	
+
+registering
+
+Note that destination name is not checked against registered name.  This may
+be enforced in the future.
+
+
+
+Limitations
+===========
+
+	Absolute maximum message size: 10240
+	Rule of thumb several hundred bytes.
+
+	(Do a grep MAX iwmdd.c)
+
+	Maximum MD process name length
+	Maximum message length
+
+
+
+
+Buffering Policy
+================
+
+	The Unix kernel buffers outgoing data from the IWMDD to the clients.
+	The buffer for each channel is of fixed size.  These buffers
+	may overflow for either of these two situations:
+
+		1.  Client does not read incoming data from server, or is
+		    slow to read incoming data.
+
+		2.  Slow data communications link between client and server.
+
+	Whenever the IWMDD attempt to write to a client, 1 of 3 (situations
+	happen):
+
+		1.  Entire write succeeds.
+
+		2.  Partial write.
+
+		3.  Nothing written.
+
+	When such conditions occur the IWMDD will buffer any partially-
+	delivered message and will periodically attempt to transfer the
+	remainder of the message.  During that time the client will
+	not receive any new messages; the IWMDD will not provide infinite
+	buffering of outgoing messages.
+
+Operating IWMDD
+===============
+
+IWMDD is a daemon - explain what a daemon is
+
+starting IWMDD by hand
+	-su
+	command line args
+
+starting IWMDD in /etc/rc.local file
+
+IWMDD Log files
+===============
+
+
+log file, debug file
+define all logged events
+
+
+Security considerations
+=======================
+
+
+No security at this time.
+
+Systems on the Internet should have security.
+
+Proposed:
+
+	/etc/mdhosts.7895
+		list of trusted hosts
+
+
+(SCCS id: "@(#)iwmdd.man	1.3 1/27/92 GTE-TSC")
