@@ -1,4 +1,4 @@
 1994_iwmdd
 ==========
-A simple 1990's era Inter-Process Communications (IPC) message broker.
+A simple Inter-Process Communications (IPC) message broker written in C.
 
